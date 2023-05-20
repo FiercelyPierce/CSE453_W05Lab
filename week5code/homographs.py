@@ -84,26 +84,46 @@ def is_homograph(file_path, test_cases):
     new_list = []
     new_path = ""
 
-    # Enumerates through the test path.
+# function to compare two paths to see if they are homographs   
+def is_homograph(file_path, test_cases):
+    """
+    Splits up the test path so it can be iterated through and checks to see if it is 
+    the same as the given file path. Then it will return whether or not they are 
+    homographs.
+    
+    Keyword arguments:
+    Perameters: file_path, test_cases
+    Return: return_description
+    """
+    # set defaults
+    case_split = test_cases.split("/")
+    new_list = []
+    new_path = ""
+
+    # Enumerates through the test path and compensates for special characters
+    # ., .., and ~
     for i, string in enumerate(case_split):
         if string == ".." and i != 0:
             new_list.pop()
-        elif (string == ".." or string == ".") and i == 0:
+        elif string == "..":
+            new_list = []
+        elif i == 0 and string == ".":
             new_list.append("home")
         elif string == "~":
             new_list = []
             new_list.append("home")
-        elif string != "." and string != "":
+        elif string != ".":
             new_list.append(string)
 
     # Creates a new path to be used for comparing against the given file path.
-    for string in new_list:
-        new_path += string + "/"
-
-    print(new_path)
+    for i, string in enumerate(new_list):
+        if i < len(new_list) - 1:
+            new_path += string + "/"
+        else:
+            new_path += string
 
     return canonicalize_sequence(file_path) == canonicalize_sequence(new_path)
-        
+
 def main():
     """
     This function will drive the program. It will request whether the user wishes to
