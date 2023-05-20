@@ -68,21 +68,6 @@ def canonicalize_sequence(sequence):
 #         print(f"{sequence2=}")
 #         print(f"{sequence1=}")
 #         return canonicalize_sequence(sequence1) == canonicalize_sequence(sequence2)
-    
-def is_homograph(file_path, test_cases):
-    """
-    Splits up the test path so it can be iterated through and checks to see if it is 
-    the same as the given file path. Then it will return whether or not they are 
-    homographs.
-    
-    Keyword arguments:
-    Perameters: file_path, test_cases
-    Return: return_description
-    """
-    
-    case_split = test_cases.split("/")
-    new_list = []
-    new_path = ""
 
 # function to compare two paths to see if they are homographs   
 def is_homograph(file_path, test_cases):
