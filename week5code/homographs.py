@@ -19,33 +19,6 @@
 # to help with this. Some include slashes (/ for Macintosh and Linux, \ for Windows), single dots (.) to indicate the current directory, and double dot (..) to indicate the previous 
 # directory. On Windows, the drive letter followed by a colon is also used (C:, D:, etc).
 
-# def homograph_analyser(sequence):
-#     sim_list = {"0x68": ["FF48", "04BB", "0x68"], # h
-#                 "0065": ["0065", "0435", "FF45"]} # e
-#     cannon = ""
-#     keys = []
-#     for char in sequence:
-#         char_hex = hex(ord(char))
-#         values = sim_list.values()
-#         index = 0
-#         for key in values:
-#             print(f"key:{key}")
-#             print(f"values:{values}")
-#             if char_hex in key:
-#                 print("Char in key list")
-#                 sim_list[index] += keys
-#             else: 
-#                 index +=1 
-#                 print(f"index: {index}")
-#             #print("IN SIM LIST")
-#         # for key in sim_list:
-#             # if sim_list[key[2:3]] == char_hex[2:3]:
-#             #     converted_hex = bytearray.fromhex(char_hex).decode()
-#             #     print(converted_hex)
-#             #     cannon += converted_hex
-#             #     print(cannon)
-#         print("DONE")
-
 import unicodedata
 
 def canonicalize_sequence(sequence):
@@ -54,20 +27,6 @@ def canonicalize_sequence(sequence):
     canon = canon.lower()
     # print(canon)
     return canon
-
-# def is_homograph(sequence1, sequence2): 
-#     if len(sequence1) < len(sequence2):
-#         sequence2 = sequence2[(-len(sequence1)+1):]
-#         sequence1 = sequence1[1:]
-#         print(f"{sequence2=}")
-#         print(f"{sequence1=}")
-#         return canonicalize_sequence(sequence1) == canonicalize_sequence(sequence2)
-#     if len(sequence2) < len(sequence1):
-#         sequence1 = sequence1[(-len(sequence2)+1):]
-#         sequence2 = sequence2[1:]
-#         print(f"{sequence2=}")
-#         print(f"{sequence1=}")
-#         return canonicalize_sequence(sequence1) == canonicalize_sequence(sequence2)
 
 # function to compare two paths to see if they are homographs   
 def is_homograph(file_path, test_cases):
