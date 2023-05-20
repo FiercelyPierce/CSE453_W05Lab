@@ -59,140 +59,156 @@ def is_homograph(sequence1, sequence2):
     if len(sequence1) < len(sequence2):
         sequence2 = sequence2[(-len(sequence1)+1):]
         sequence1 = sequence1[1:]
-        # print(f"{sequence2=}")
-        # print(f"{sequence1=}")
+        print(f"{sequence2=}")
+        print(f"{sequence1=}")
         return canonicalize_sequence(sequence1) == canonicalize_sequence(sequence2)
     if len(sequence2) < len(sequence1):
         sequence1 = sequence1[(-len(sequence2)+1):]
         sequence2 = sequence2[1:]
-        # (f"{sequence2=}")
-        # (f"{sequence1=}")
+        print(f"{sequence2=}")
+        print(f"{sequence1=}")
         return canonicalize_sequence(sequence1) == canonicalize_sequence(sequence2)
-
+    
+# def is_a_homograph(file_path, test_cases):
+#     case_split = test_cases.split("/")
+#     path_split = file_path.split("/")
+#     iterator = 0
+#     for seccion in case_split:
+#         if seccion == path_split[iterator]:
+#             iterator+= 1
+        
 def main():
-    # sequence1 = "hello"
-    # sequence2 = "HELLO"
-    # homograph_analyser(sequence1)
-    # homograph_analyser(sequence2)
-    
-    sequence1 = input("Specify the first filename: ")
-    sequence2 = input("Specify the second filename: ")
-    print(f"{sequence2=}")
-    print(f"{sequence1=}")
-    
-    # Check if the sequences are homographs
-    if is_homograph(sequence1, sequence2):
-        print("The sequences are homographs.")
-    else:
-        print("The sequences are not homographs.")
-    
+    """
+    This function will drive the program. It will request whether the user wishes to
+    run automated or manual testing and respond accordingly. 
+    Parameters: none
+    Return:     nothing
+    """
+    # menu to either test automatically or select manual test
+    # set selection to default to use as loop control
+    selection = ""
 
+    # loop until a valid selection is made
+    while selection != "a" and selection != "m":
 
-testcases = []   
-#TEST CASES
-def test_case1():
-    print("-----------------------------------------------------") 
-    print("TEST CASE 1")
-    sequence1 = "TESTING.txt"
-    print("Specify the first filename: TESTING.txt")
-    sequence2 = "../../cse453/week05/test.txt"
-    print("Specify the second filename: ../../cse453/week05/test.txt")
-    is_homograph_bool = is_homograph(sequence1, sequence2)
-    # Check if the sequences are homographs
-    if is_homograph_bool:
-        print("The sequences are homographs.")
-    else:
-        print("The sequences are not homographs.")
-    if is_homograph_bool == False:
-        testcases.append("Test case 1: PASSED")
-    if is_homograph_bool == True:
-        testcases.append("Test Case 1: NOT PASSED.")
-    print("-----------------------------------------------------")
+        # get selection from user
+        selection = input("\nDo you want to run the (a)utomatic tests or input a path (m)anually a/m? ")
         
-def test_case2():
-    print("TEST CASE 2")
-    sequence1 = "test.txt"
-    print("Specify the first filename: test.txt")
-    sequence2 = "../../cse453/week05/test.txt"
-    print("Specify the second filename: ../../cse453/week05/test.txt")
-    is_homograph_bool = is_homograph(sequence1, sequence2)
-    # Check if the sequences are homographs
-    if is_homograph_bool:
-        print("The sequences are homographs.")
-    else:
-        print("The sequences are not homographs.")
-    if is_homograph_bool == True:
-        testcases.append("Test case 2: PASSED")
-    if is_homograph_bool == False:
-        testcases.append("Test Case 2: NOT PASSED.")
-    print("-----------------------------------------------------") 
-      
-def test_case3():
-    print("TEST CASE 3")
-    sequence1 = "TEST.txt"
-    print("Specify the first filename: TEST.txt")
-    sequence2 = "../../cse453/week05/test.txt"
-    print("Specify the second filename: ../../cse453/week05/test.txt")
-    is_homograph_bool = is_homograph(sequence1, sequence2)
-    # Check if the sequences are homographs
-    if is_homograph_bool:
-        print("The sequences are homographs.")
-    else:
-        print("The sequences are not homographs.")
-    if is_homograph_bool == True:
-        testcases.append("Test case 3: PASSED")
-    if is_homograph_bool == False:
-        testcases.append("Test Case 3: NOT PASSED.")
-    print("-----------------------------------------------------")
-        
-def test_case4():
-    print("TEST CASE 4")
-    sequence1 = "TEST.tⅩt"
-    print("Specify the first filename: test.tⅩt")
-    sequence2 = "../../cse453/week05/test.txt"
-    print("Specify the second filename: ../../cse453/week05/test.txt")
-    is_homograph_bool = is_homograph(sequence1, sequence2)
-    # Check if the sequences are homographs
-    if is_homograph_bool:
-        print("The sequences are homographs.")
-    else:
-        print("The sequences are not homographs.")
-    if is_homograph_bool == True:
-        testcases.append("Test case 4: PASSED")
-    if is_homograph_bool == False:
-        testcases.append("Test Case 4: NOT PASSED.")
-    print("-----------------------------------------------------") 
+        # if automatic, run prepared test cases
+        if selection == "a":
+            test_cases(get_homographs(), "Homograph")
+            test_cases(get_nonhomographs(), "Non-Homograph")
 
-def test_case5():
-    print("TEST CASE 5")
-    sequence1 = "home/user/secret/"
-    print("Specify the first filename: home/user/secret/")
-    sequence2 = "~/user/secret/"
-    print("Specify the second filename: ~/user/secret/")
-    is_homograph_bool = is_homograph(sequence1, sequence2)
-    # Check if the sequences are homographs
-    if is_homograph_bool:
-        print("The sequences are homographs.")
-    else:
-        print("The sequences are not homographs.")
-    if is_homograph_bool == True:
-        testcases.append("Test case 5: PASSED")
-    if is_homograph_bool == False:
-        testcases.append("Test Case 5: NOT PASSED.")
-    print("-----------------------------------------------------") 
+        # if manual, get arguments from user
+        elif selection == "m":
+            sequence1 = input("Specify the first filename: ")
+            sequence2 = input("Specify the second filename: ")
+            print(f"{sequence2=}")
+            print(f"{sequence1=}")
+
+            # Check if the sequences are homographs and show result
+            if is_homograph(sequence1, sequence2):
+                print("The sequences are homographs.")
+            else:
+                print("The sequences are not homographs.")
+
+        # alert user to choose either automatic or manual and rerun selection
+        else:
+            print("Invalid choice. Please enter either a for automatic test or m for manual.")
     
-print("-----------------------------------------------------")
-print("NON-HOMOGRAPHS")             
-test_case1()
-print("HOMOGRAPHS")
-print("-----------------------------------------------------")
-test_case2()
-test_case3()
-test_case4()
-test_case5()
 
-for test in testcases:
-    print(test)
-print("-----------------------------------------------------") 
+# get list of homographs
+def get_homographs():
+    """
+    This function will return a list of valid pathways and homograph pathways.
+    Parameters: none
+    Return:     homograph_testcases - a list of valid pathways and homographs
+    """
+    # set test cases for both homographs and non-homographs
+    homograph_testcases = [
+        ["root/home/cse453/week05/", "~/cse453/week05/"],
+        ["root/home/cse453/week05/", "./cse453/week05/"],
+        ["root/home/cse453/week05/", "./cse453/../cse453/week05/"],
+        ["root/home/cse453/week05/", "~/cse453/../../home/cse453/week05/"],
+        ["root/home/cse453/week05/", "../home/cse453/../cse453/week05/"],
+        ["root/home/cse453/week05/", "../home/../~/./cse453/week05/"],
+        ["root/home/cse453/week05/", "./cse453/./~/cse453/week05/"],
+        ["root/home/cse453/week05/", "~/cse453/./week05/"],
+        ["root/home/cse453/week05/", "../home/./cse453/./week05/"],
+        ["root/home/cse453/week05/", "~/../home/./cse453/week05/"],
+        ["root/home/cse453/week05/", "./cse453/./week05/"]
+    ]
+    return homograph_testcases
+
+
+# get list of non-homographs
+def get_nonhomographs():
+    """
+    This function will return a list of valid pathways and non-homograph paths
+    Parameters: none
+    Return:     nonhomograph_testcases - a list of valid pathways and non-homograph paths
+    """
+    # set test cases that are non homographs
+    nonhomograph_testcases = [
+        ["home/cse453/week05/test.txt", "home/../cse453/week05/test.txt"]
+    ]   
+    return nonhomograph_testcases
+
+
+# run test cases
+def test_cases(tests, title):
+    """
+    This function will accept a list of valid and comparison pathways and a variable giving
+    the title of the list. It will then loop through the list, calling the is_homograph function.
+    It will display the result of that function and record the pass or fail result of the comparison
+    to display at the end of the comparisons.
+    Parameters: tests - a list of both valid pathways and paths to be compared against
+                title - a string consisting of the title designating the tests list to be homograph
+                        or non-homograph in nature
+    Return:     nothing
+    """
+    # set defaults
+    test_results = []
+    result = ""
+
+    # print header for display
+    print("\n-----------------------------------------------------")
+    print(f"{title} Comparisons:\n") 
+
+    # loop through tests list with enumerate, determine whether the two are
+    # homographs and display the result
+    for item, homographs in enumerate(tests):
+        result = is_homograph(homographs[0], homographs[1])
+        print(f"Test Case {item + 1}: {homographs[0]} & {homographs[1]} = {result}")
+        
+        # if the two are homographs, show test as Passed, else False
+        if result == True:
+            test_result = "Passed"
+        else:
+            test_result = "Failed"
+
+        # append results of test cases to the test_results list
+        test_results.append(f"Test Case {item + 1}: {test_result}")
+    
+    # show definitive result of test cases
+    print(f"\nFinal tally of {title} comparisons:\n")
+    
+    # loop through test results list
+    for result in test_results:
+
+        # if last 6 letters are failed, final result should be
+        # 'not a homograph', otherwise it is 'a homograph' 
+        if result[len(result)-6:] == "Failed":
+            final_result = "not a homograph"
+        else:
+            final_result = "a homograph"
+
+        # print the test case number, whether or not it is a homograph    
+        print(f"{result}, so it is {final_result}.")
+
+    # display footer to signify end of title test cases    
+    print("\n-----------------------------------------------------\n")
+
+
 if __name__ == "__main__":
     main()
